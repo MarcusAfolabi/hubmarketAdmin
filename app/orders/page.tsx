@@ -1,17 +1,16 @@
-import { APP_NAME } from "@/app/setting";
+import { APP_NAME } from "../setting";
+import OrdersTable from "./components/OrdersTable";
+
 export const generateMetadata = () => {
 
     return {
-      title: "Orders - " + APP_NAME,
+        title: "Customers - " + APP_NAME,
     };
-  };
-  
-  export default function Orders() {
+};
+export default function Orders() {
     return (
-      <div>
-        <h1 className="text-2xl font-bold">Orders</h1>
-        <p>Manage your vendors orders here.</p>
-      </div>
+        <div>
+            <OrdersTable limit={10} />
+        </div>
     );
-  }
-  
+}
