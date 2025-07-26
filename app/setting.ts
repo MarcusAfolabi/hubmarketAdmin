@@ -98,8 +98,11 @@ export const NAVIGATION = [
         icon: CreditCardIcon,
         children: [
             { name: "All Orders", href: "/orders" },
-            { name: "Returns & Refunds", href: "/orders/returns" },
-            { name: "Disputes", href: "/orders/disputes" },
+            { name: "Processing orders", href: "/orders/processing" },
+            { name: "Ongoing orders", href: "/orders/ongoing" },
+            { name: "Delivered orders", href: "/orders/delivered" },
+            { name: "Cancelled orders", href: "/orders/cancelled" },
+            { name: "Returns & Refunds orders", href: "/orders/returned" },
         ],
     },
     {
@@ -107,13 +110,14 @@ export const NAVIGATION = [
         href: "/finance",
         icon: CurrencyDollarIcon,
         children: [
-            { name: "Revenue Overview", href: "/finance/overview" },
-            { name: "Vendor Commissions", href: "/finance/commissions" },
-            { name: "Taxes & Fees", href: "/finance/taxes" },
-            { name: "Payout Schedule", href: "/finance/payouts" },
+            { name: "Revenue Overview", href: "/finance" },
+            { name: "Payout Requests", href: "/finance/payouts" }, 
+            { name: "Transactions", href: "/finance/transactions" },
+            { name: "Payout Commission", href: "/finance/commission" }, 
+            { name: "Settlment Accounts", href: "/finance/settlement-accounts" }, 
         ],
     },
-    {
+    {   
         name: "Reports & Analytics",
         href: "/reports",
         icon: ChartBarIcon,
