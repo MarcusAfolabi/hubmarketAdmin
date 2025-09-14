@@ -21,20 +21,17 @@ import {
     HomeIcon,
     ShoppingBagIcon,
     CreditCardIcon,
-    ChartBarIcon,
     Cog6ToothIcon,
     QuestionMarkCircleIcon,
     UserCircleIcon,
-    WrenchIcon,
-    ShieldCheckIcon,
-    BriefcaseIcon,
-    BellAlertIcon,
     ArrowRightStartOnRectangleIcon,
     CurrencyDollarIcon,
     MegaphoneIcon,
     BuildingStorefrontIcon,
     Squares2X2Icon,
     CubeIcon,
+    AdjustmentsHorizontalIcon,
+    FlagIcon,
 } from "@heroicons/react/24/outline";
 
 export const NAVIGATION = [
@@ -51,6 +48,28 @@ export const NAVIGATION = [
         children: [
             { name: "Customer List", href: "/customers" },
             { name: "Customer Activity", href: "/customers/activities" },
+        ],
+    },
+    {
+        name: "Order Management",
+        href: "/orders",
+        icon: CreditCardIcon,
+        children: [
+            { name: "All Orders", href: "/orders" },
+            { name: "Processing orders", href: "/orders/processing" },
+            { name: "Ongoing orders", href: "/orders/ongoing" },
+            { name: "Delivered orders", href: "/orders/delivered" },
+            { name: "Cancelled orders", href: "/orders/cancelled" },
+            { name: "Returns & Refunds orders", href: "/orders/returned" },
+        ],
+    },
+    {
+        name: "Reviews Management",
+        href: "/orders",
+        icon: CreditCardIcon,
+        children: [
+            { name: "All Reviews", href: "/reviews" },
+            { name: "Un-Reviews orders", href: "/reviews/un-reviews" },
         ],
     },
     {
@@ -79,8 +98,25 @@ export const NAVIGATION = [
         children: [
             { name: "All categories", href: "/categories" },
             { name: "Sub-categories", href: "/categories/sub" },
-            { name: "Category Banners", href: "/categories/banners" },
             { name: "Category Analytics", href: "/categories/analytics" },
+        ],
+    },
+    {
+        name: "Variation Management",
+        href: "/variations",
+        icon: AdjustmentsHorizontalIcon,
+        children: [
+            { name: "Product colors", href: "/variations/colors" },
+            { name: "Product sizes", href: "/variations/sizes" },
+        ],
+    },
+    {
+        name: "Banner Management",
+        href: "/categories",
+        icon: FlagIcon,
+        children: [
+            { name: "Banners", href: "/banners" },
+            { name: "Banner types", href: "/banners/types" },
         ],
     },
     {
@@ -93,93 +129,81 @@ export const NAVIGATION = [
         ],
     },
     {
-        name: "Order Management",
-        href: "/orders",
-        icon: CreditCardIcon,
+        name: "FAQs Management",
+        href: "/faqs",
+        icon: QuestionMarkCircleIcon,
         children: [
-            { name: "All Orders", href: "/orders" },
-            { name: "Processing orders", href: "/orders/processing" },
-            { name: "Ongoing orders", href: "/orders/ongoing" },
-            { name: "Delivered orders", href: "/orders/delivered" },
-            { name: "Cancelled orders", href: "/orders/cancelled" },
-            { name: "Returns & Refunds orders", href: "/orders/returned" },
+            { name: "FAQs", href: "/faqs" },
+            { name: "Tutorials", href: "/tutorials" },
         ],
     },
+
     {
         name: "Financial Management",
         href: "/finance",
         icon: CurrencyDollarIcon,
         children: [
             { name: "Revenue Overview", href: "/finance" },
-            { name: "Payout Requests", href: "/finance/payouts" }, 
+            { name: "Payout Requests", href: "/finance/payouts" },
             { name: "Transactions", href: "/finance/transactions" },
-            { name: "Payout Commission", href: "/finance/commission" }, 
-            { name: "Settlment Accounts", href: "/finance/settlement-accounts" }, 
-        ],
-    },
-    {   
-        name: "Reports & Analytics",
-        href: "/reports",
-        icon: ChartBarIcon,
-        children: [
-            { name: "Sales Reports", href: "/reports/sales" },
-            { name: "Vendor Reports", href: "/reports/vendors" },
-            { name: "Notifications", href: "/settings/notifications" },
+            { name: "Commission Revenues", href: "/finance/revenues" },
+            { name: "Commission Rates", href: "/finance/commissions" },
+            {
+                name: "Settlment Accounts",
+                href: "/finance/settlement-accounts",
+            },
         ],
     },
     {
         name: "Support Tickets",
-        href: "/reports",
+        href: "/tickets",
         icon: MegaphoneIcon,
         children: [
             { name: "Tickets", href: "/tickets" },
             { name: "Notifications", href: "/notifications" },
         ],
     },
-    {
-        name: "Platform Settings",
-        href: "/settings",
-        icon: Cog6ToothIcon,
-        children: [
-            { name: "General Settings", href: "/settings/general" },
-            { name: "Clik2Pay Configuration", href: "/settings/clik2pay" },
-            { name: "EasyPost Configuration", href: "/settings/easypost" },
-            { name: "SMS Configuration", href: "/settings/sms" },
-            { name: "Email Configuration", href: "/settings/email" },
-            { name: "Payment methods", href: "/settings/payments" },
-        ],
-    },
+
     {
         name: "Security & Compliance",
         href: "/security",
-        icon: QuestionMarkCircleIcon,
+        icon: Cog6ToothIcon,
         children: [
-            { name: "Privacy & Compliance", href: "/security/policies" },
+            { name: "Privacy & Compliance", href: "/settings/policies" },
         ],
     },
+    {
+        name: "Platform Settings",
+        href: "/settings/app",
+        icon: AdjustmentsHorizontalIcon,
+        children: [
+            { name: "Settings", href: "/settings/app" },
+            { name: "Team members", href: "/teams" },
+        ],
+    },
+]; 
+
+export const PrivacyPages = [
+    { name: "Privacy Policy", type: "privacy" },
+    { name: "Terms and Conditions", type: "terms" },
+    { name: "Delivery Policy", type: "delivery" },
+    { name: "Refund Policy", type: "refund" },
+    { name: "Return Policy", type: "return" },
+];
+
+export const receiverOptions = [
+    { label: "All notifications", value: "" },
+    { label: "All users", value: "all" },
+    { label: "All customers", value: "customer" },
+    { label: "All vendor", value: "vendor" },
+];
+
+export const typeOptions = [
+    { label: "SMS", value: "sms" },
+    { label: "Email", value: "email" },
 ];
 
 export const bottomNavigation = [
-    {
-        name: "App Settings",
-        href: "/settings/app",
-        icon: WrenchIcon,
-    },
-    {
-        name: "Policies Settings",
-        href: "/settings/policies",
-        icon: ShieldCheckIcon,
-    },
-    {
-        name: "Profile Settings",
-        href: "#",
-        icon: BriefcaseIcon,
-    },
-    {
-        name: "Tickets",
-        href: "/settings/tickets",
-        icon: BellAlertIcon,
-    },
     {
         name: "Sign out",
         href: "#",

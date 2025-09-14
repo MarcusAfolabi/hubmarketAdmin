@@ -2,13 +2,22 @@
 
 import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import LayoutWrapper from './LayoutWrapper'; // your shell
+import LayoutWrapper from './LayoutWrapper';
+
+const publicAuthRoutes = [
+    '/auth/login',
+    '/auth/forget-password',
+    '/auth/confirm-reset-code',
+    '/auth/reset-password',
+];
+const semiPrivateRoute = '/auth/change-password';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
     const router = useRouter();
     const pathname = usePathname();
     const [isChecking, setIsChecking] = useState(true);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+
 
     useEffect(() => {
         const cookies = document.cookie
@@ -23,12 +32,12 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         const user = cookies['user'];
 
         if (!token || !user) {
-            if (pathname !== '/login') {
-                router.replace('/login');
+            if (![...publicAuthRoutes].includes(pathname)) {
+                router.replace('/auth/login');
             }
             setIsAuthenticated(false);
         } else {
-            if (pathname === '/login') {
+            if (publicAuthRoutes.includes(pathname)) {
                 router.replace('/');
             } else {
                 setIsAuthenticated(true);
@@ -39,8 +48,12 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
     }, [pathname, router]);
 
     if (isChecking) return null;
-    if (!isAuthenticated && pathname !== '/login') return null;
-    if (pathname === '/login') return children;
+
+    if (!isAuthenticated && !publicAuthRoutes.includes(pathname)) return null;
+
+    if (publicAuthRoutes.includes(pathname)) return children;
+
+    if (pathname === semiPrivateRoute) return children;
 
     return <LayoutWrapper>{children}</LayoutWrapper>;
 }

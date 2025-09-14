@@ -3,11 +3,11 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import dynamic from "next/dynamic";
 import { ApexOptions } from "apexcharts";
-import { getSalesGraph } from "@/app/api";
 import AreaChartSkeleton from "../Skeletons/AreaChartSkeleton";
 import { formatDate } from "@/utils/formatHumanReadableDate";
 import { MONTHS } from "@/app/setting";
 import SelectDropdown from "./Fields/SelectDropdown";
+import { getSalesGraph } from "@/app/api_/orders";
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -21,8 +21,7 @@ const AreaChart = () => {
     const [hasData, setHasData] = useState<boolean>(false);
 
     const monthOptions = MONTHS.map((m) => ({ label: m, value: m }));
-    const [selected, setSelected] = useState<{ label: string; value: string }>(
-        monthOptions.find((m) => m.value === new Date().toLocaleString("default", { month: "long" })) || monthOptions[0]
+    const [selected, setSelected] = useState<{ label: string; value: string }>(monthOptions[0]
     );
 
     const fetchChartData = useCallback(async (selectedPeriod: string) => {

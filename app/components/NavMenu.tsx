@@ -4,12 +4,37 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAVIGATION } from "@/app/setting";
 import clsx from "clsx";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import { User } from "@/types/UserType";
 
-const NavMenu = () => {
+const NavMenu = ({ user }: { user: User | null }) => {
     const pathname = usePathname();
     const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+
+    const filteredNavigation = useMemo(() => {
+        if (!user) return [];
+
+        if (user.role === "staff") {
+            // Only allow these sections for staff
+            const allowed = [
+                "Customer Management",
+                "Items Management",
+                "Vendor Management",
+                "Support Tickets",
+                "Reviews Management",
+                "Category Management",
+                "Variation Management",
+                "Banner Management",
+                "Shop Management",
+                "FAQs Management"
+            ];
+            return NAVIGATION.filter((nav) => allowed.includes(nav.name));
+        }
+
+        // otherwise return full menu
+        return NAVIGATION;
+    }, [user]);
 
     const toggleSection = (name: string) => {
         setOpenSections((prev) => ({
@@ -20,7 +45,7 @@ const NavMenu = () => {
 
     return (
         <ul className="space-y-2">
-            {NAVIGATION.map((item) => {
+            {filteredNavigation.map((item) => {
                 const isActiveParent = pathname.startsWith(item.href);
                 const isOpen = openSections[item.name] || isActiveParent;
 
@@ -29,7 +54,7 @@ const NavMenu = () => {
                         <button
                             onClick={() => toggleSection(item.name)}
                             className={clsx(
-                                "w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-semibold",
+                                "w-full flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-semibold",
                                 isActiveParent
                                     ? "text-orange-500"
                                     : "text-gray-700 hover:text-orange-500"
@@ -56,7 +81,7 @@ const NavMenu = () => {
                                             <Link
                                                 href={subItem.href}
                                                 className={clsx(
-                                                    "block px-3 py-1.5 text-sm rounded-md",
+                                                    "block px-3 py-1.5 text-xs rounded-md",
                                                     isActiveSub
                                                         ? "bg-orange-50 text-orange-600"
                                                         : "text-gray-500 hover:text-orange-500 hover:bg-orange-50"

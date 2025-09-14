@@ -44,3 +44,4 @@ export async function updateItemStatus(productId: number, status: string) {
     const response = await axios.patch(`/product/${productId}/status/${status}`);
     return response.data;
 }
+

@@ -4,7 +4,7 @@ import { OrderGraphPoint, OrderResponse, OrderStatsType } from "@/types/OrderTyp
 export async function getRecentOrders(
     limit: number,
     offset: number,
-    search: string,
+    search?: string,
     status?: string
 ) {
     const response = await axios.get("/orders", {
@@ -24,6 +24,12 @@ export async function changeOrderStatus(orderId: number, status: string) {
     });
     return response.data;
 }
+export async function changeOrderPaymentStatus(orderId: number, status: string) {
+    const response = await axios.put(`/orders/${orderId}/payment-status`, {
+        payment_status: status,
+    });
+    return response.data;
+}
 
 export async function getOrderGraph(start_date?: string): Promise<OrderGraphPoint[]> {
   const response = await axios.get<OrderGraphPoint[]>(`/orders/graph`, {
@@ -35,5 +41,17 @@ export async function getOrderGraph(start_date?: string): Promise<OrderGraphPoin
 export async function orderStats(): Promise<OrderStatsType> {
   const response = await axios.get<OrderStatsType>(`/orders/stats`);
   return response.data;
+}
+
+export async function getSalesGraph(period: string) {
+    const response = await axios.get(
+        `/stats/graph?start_date=${period}`
+    );
+    return response;
+}
+
+export async function getStats(period: string) {
+    const response = await axios.get(`/stats?start_date=${period}`);
+    return response.data;
 }
 

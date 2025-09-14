@@ -1,5 +1,5 @@
 import { CategoryAnalyticsType } from "@/types/CategoryType";
-import axios from "@/app/lib/axios";  
+import axios from "@/app/lib/axios";
 
 export async function getCategories(
     limit?: number,
@@ -26,7 +26,9 @@ export async function listSubCategories(
 }
 
 export async function updateCategoryStatus(categoryId: number, status: string) {
-    const response = await axios.patch(`/category/${categoryId}/status/${status}`);
+    const response = await axios.patch(
+        `/category/${categoryId}/status/${status}`
+    );
     return response.data;
 }
 
@@ -47,9 +49,13 @@ export async function addCategory(formData: FormData) {
 }
 
 export async function updateCategory(categoryId: number, formData: FormData) {
-    const response = await axios.post(`/category/${categoryId}/update`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-    });
+    const response = await axios.post(
+        `/category/${categoryId}/update`,
+        formData,
+        {
+            headers: { "Content-Type": "multipart/form-data" },
+        }
+    );
 
     return response.data;
 }
@@ -61,35 +67,15 @@ export async function listBanners(limit?: number, offset?: number) {
     return response.data;
 }
 
-export async function addBanner(formData: FormData) {
-    const response = await axios.post("/banners/create", formData, {
-        headers: {
-            Accept: "application/json",
-        },
-    });
-    return response.data;
-}
-
-export async function updateBanner(bannerId: number, formData: FormData) {
-    const response = await axios.put(`/banners/${bannerId}/update`, formData, {
-        headers: {
-            Accept: "application/json",
-        },
-    });
-    return response.data;
-}
-
-export async function deleteBanner(bannerId: number) {
-    const response = await axios.delete(`/banners/${bannerId}/delete`);
-    return response.data;
-}
-
 export async function categoryAnalytics(params: {
     limit: number;
     offset: number;
 }): Promise<CategoryAnalyticsType> {
-    const response = await axios.get<CategoryAnalyticsType>("/category-analytics", {
-        params,
-    });
+    const response = await axios.get<CategoryAnalyticsType>(
+        "/category-analytics",
+        {
+            params,
+        }
+    );
     return response.data;
 }
